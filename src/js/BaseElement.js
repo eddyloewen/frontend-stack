@@ -1,14 +1,14 @@
 class BaseElement extends HTMLElement {
     constructor(options = {}) {
-        super()
+        super();
         this._options = Object.assign(
             {
                 autoRender: true,
                 deferRender: true,
             },
             options,
-        )
+        );
     }
 }
 
-export default BaseElement
+export default BaseElement;
