@@ -1,6 +1,6 @@
 {
   "name": "gulp-mix",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Gulp Mix is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
   "keywords": [
     "frontend stack",
@@ -64,7 +64,6 @@
     }
   },
   "scripts": {
-    "build": "del dist/cjs dist/es dist/umd && rollup -c",
-    "prepublishOnly": "del dist/cjs dist/es dist/umd && rollup -c"
+    "build": "rollup -c"
   }
 }

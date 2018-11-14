@@ -103,13 +103,19 @@ const compileES5 = (src, dest) => {
 };
 compileES5.description = `compile scripts using rollup with babel and transpiling it to ES5`;
 
+const compileJS = (src, dest) => {
+    const bundlePromises = [compileES6(src, dest), compileES5(src, dest)];
+    return Promise.all(bundlePromises);
+};
+compileJS.description = `compile scripts using rollup to generate es6 and es5 bundles`;
+
 const projectTitle = 'Project title';
-const watchJS = src => {
+const watchJS = (src, tasks) => {
     notify({
         title: projectTitle,
         message: 'Watching for JS changes...',
     }).write('');
-    gulp.watch(src, gulp.series(lintJS, compileES6, compileES5))
+    gulp.watch(src, tasks)
         .on('change', function() {
             notify({ title: projectTitle, message: 'JS changed' }).write('');
         })
@@ -122,4 +128,4 @@ const watchJS = src => {
 };
 watchJS.description = `watch for scripts changes and lint then compile on change`;
 
-export { compileES6, compileES5, lintJS, watchJS };
+export { compileES6, compileES5, compileJS, lintJS, watchJS };

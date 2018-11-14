@@ -1,64 +1,41 @@
 const gulp = require('gulp');
 const mix = require('gulp-mix');
 
-function clean() {
-    return mix.clean(['public/assets/*', 'public/css/*', 'public/js/*']);
-}
+const copyFiles = [
+    {
+        src: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js',
+        dest: 'public/vendor/js/',
+    },
+];
 
-function copy() {
-    return mix.copy([
-        {
-            src: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js',
-            dest: 'public/vendor/js/',
-        },
-    ]);
-}
+const svgSprites = [
+    {
+        src: 'src/assets/icons/*.svg',
+        dest: 'public/assets/icons',
+    },
+];
 
-function svg() {
-    return mix.svg([
-        {
-            src: 'src/assets/icons/*.svg',
-            dest: 'public/assets/icons',
-        },
-    ]);
-}
+// TODO: add global config to gulp-mix (see: https://github.com/JeffreyWay/laravel-mix/blob/master/src/index.js)
+// mix.options({
+//     projectTitle: 'Frontend Stack',
+// });
 
-function css() {
-    return mix.compileCSS('src/css/*.css', 'public/css/');
-}
+const clean = () => mix.clean(['public/assets/*', 'public/css/*', 'public/js/*']);
+const copy = () => mix.copy(copyFiles);
+const svg = () => mix.svg(svgSprites);
 
-//TODO: tailwind() task
-//TODO: postCSS() task
+// TODO: rename mix tasks to just css and js (remove compile part in function name)
+const css = () => mix.compileCSS('src/css/*.css', 'public/css/');
+const js = () => mix.compileJS(['src/js/BaseElement.js'], 'public/js/');
 
-function es6() {
-    return mix.compileES6(['src/js/BaseElement.js'], 'public/js/');
-}
+// TODO: use lint configs from project rather than from gulp-mix
+const lintCSS = () => mix.lintCSS('src/css/*.css');
+const lintJS = () => mix.lintJS('src/js/*.js');
 
-function es5() {
-    return mix.compileES5(['src/js/BaseElement.js'], 'public/js/');
-}
+const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
+const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, js));
 
-//TODO: js() task
-
-function lintCSS() {
-    return mix.lintCSS('src/css/*.css');
-}
-
-function lintJS() {
-    return mix.lintJS('src/js/*.js');
-}
-
-function watchCSS() {
-    return mix.watchCSS(['src/css/*.css', 'tailwind.js']);
-}
-
-function watchJS() {
-    return mix.watchJS(['src/js/*.js', 'gulpfile.js']);
-}
-
-//TODO pass gulp tasks to watch tasks
-
-gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, es6, es5)));
+gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, js)));
 
 gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default', gulp.parallel(watchCSS, watchJS)));
 gulp.task('prod', gulp.series('default'));
@@ -67,7 +44,6 @@ gulp.task('tinker', gulp.series('default', gulp.parallel(watchCSS, watchJS)));
 // Full API
 // mix.js(src, output);
 // mix.css(src, output, { autoprefixerOptions: {}, postCssPlugins: []});
-// mix.extract(vendorLibs);
 // mix.sass(src, output);
 // mix.postCss(src, output, [require('postcss-some-plugin')()]);
 // mix.browserSync('my-site.test');

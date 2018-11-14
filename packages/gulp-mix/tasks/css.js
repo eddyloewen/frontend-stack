@@ -71,13 +71,65 @@ const compileCSS = (src, dest) => {
 };
 compileCSS.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
 
+const tailwind = (src, dest, configPath) => {
+    return gulp
+        .src(src)
+        .pipe(sourcemaps.init())
+        .pipe(
+            postcss([
+                postcssImport(),
+                tailwindcss(configPath),
+                postcssNested(),
+                autoprefixer({
+                    browsers: ['last 2 versions', 'IE 11'],
+                    grid: true,
+                }),
+            ]),
+        )
+        .pipe(
+            isProd(
+                purgecss({
+                    content: ['templates/**/*.html'],
+                    extractors: [
+                        {
+                            extractor: TailwindExtractor,
+                            extensions: ['html', 'js', 'ftl', 'yaml', 'hbs'],
+                        },
+                    ],
+                }),
+            ),
+        )
+        .pipe(
+            isProd(
+                postcss([
+                    cssnano({
+                        preset: 'default',
+                    }),
+                ]),
+            ),
+        )
+        .pipe(isDev(sourcemaps.write('.')))
+        .pipe(gulp.dest(dest));
+};
+tailwind.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
+
+const postCSS = (src, dest, plugins) => {
+    return gulp
+        .src(src)
+        .pipe(sourcemaps.init())
+        .pipe(postcss(plugins))
+        .pipe(isDev(sourcemaps.write('.')))
+        .pipe(gulp.dest(dest));
+};
+postCSS.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
+
 const projectTitle = 'Project title';
-const watchCSS = src => {
+const watchCSS = (src, tasks) => {
     notify({ title: projectTitle, message: 'Watching for CSS changes...' }).write('');
-    gulp.watch(src, gulp.series(lintCSS, compileCSS)).on('change', function() {
+    gulp.watch(src, tasks).on('change', function() {
         notify({ title: projectTitle, message: 'CSS changed' }).write('');
     });
 };
 watchCSS.description = `watch for style changes and lint then compile on change`;
 
-export { compileCSS, lintCSS, watchCSS };
+export { compileCSS, tailwind, postCSS, lintCSS, watchCSS };
