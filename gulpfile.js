@@ -27,6 +27,9 @@ function css() {
     return mix.compileCSS('src/css/*.css', 'public/css/');
 }
 
+//TODO: tailwind() task
+//TODO: postCSS() task
+
 function es6() {
     return mix.compileES6(['src/js/BaseElement.js'], 'public/js/');
 }
@@ -34,6 +37,8 @@ function es6() {
 function es5() {
     return mix.compileES5(['src/js/BaseElement.js'], 'public/js/');
 }
+
+//TODO: js() task
 
 function lintCSS() {
     return mix.lintCSS('src/css/*.css');
@@ -50,6 +55,8 @@ function watchCSS() {
 function watchJS() {
     return mix.watchJS(['src/js/*.js', 'gulpfile.js']);
 }
+
+//TODO pass gulp tasks to watch tasks
 
 gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, es6, es5)));
 

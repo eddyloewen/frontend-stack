@@ -1,11 +1,20 @@
 {
   "name": "gulp-mix",
-  "version": "0.1.1",
-  "main": "dist/index.js",
+  "version": "0.2.0",
+  "description": "Gulp Mix is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
+  "keywords": [
+    "frontend stack",
+    "gulp",
+    "gulp mix",
+    "rollup",
+    "postcss"
+  ],
   "repository": "git@github.com:eddyloewen/frontend-stack.git",
   "author": "Eddy Löwen <mail@eddyloewen.com>",
   "license": "MIT",
   "private": true,
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
@@ -55,6 +64,7 @@
     }
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "del dist/cjs dist/es dist/umd && rollup -c",
+    "prepublishOnly": "del dist/cjs dist/es dist/umd && rollup -c"
   }
 }
