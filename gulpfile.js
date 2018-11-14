@@ -18,6 +18,9 @@ const svgSprites = [
 // TODO: add global config to gulp-mix (see: https://github.com/JeffreyWay/laravel-mix/blob/master/src/index.js)
 // mix.options({
 //     projectTitle: 'Frontend Stack',
+//     disableNotifications: false,
+//     generateVersionManifest: false,
+//     purgeCss: true,
 // });
 
 const clean = () => mix.clean(['public/assets/*', 'public/css/*', 'public/js/*']);
@@ -43,19 +46,16 @@ gulp.task('tinker', gulp.series('default', gulp.parallel(watchCSS, watchJS)));
 
 // Full API
 // mix.js(src, output);
-// mix.css(src, output, { autoprefixerOptions: {}, postCssPlugins: []});
+// mix.css(src, output);
 // mix.sass(src, output);
-// mix.postCss(src, output, [require('postcss-some-plugin')()]);
+// mix.tailwind(src, output);
+// mix.postCss(src, output, [plugins]);
 // mix.browserSync('my-site.test');
-// mix.combine(files, destination);
 // mix.svg(icons, destination);
 // mix.copy(from, to);
-// mix.copyDir(fromDir, toDir);
-// mix.minify(file);
-// mix.sourceMaps(); // Enable sourcemaps
-// mix.version(); // Enable versioning.
-// mix.disableNotifications();
 // mix.options({
-//   purgeCss: false, // Remove unused CSS selectors.
+//     projectTitle: 'Frontend Stack',
+//     disableNotifications: false,
+//     generateVersionManifest: false,
+//     purgeCss: true,
 // });
-// mix.then(function () {}) <-- Will be triggered each time Webpack finishes building.
