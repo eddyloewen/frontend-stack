@@ -30,7 +30,6 @@ const svg = () => mix.svg(svgSprites);
 const css = () => mix.css('src/css/*.css', 'public/css/');
 const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
 
-// TODO: use lint configs from project rather than from gulp-mix
 const lintCSS = () => mix.lintCSS('src/css/*.css');
 const lintJS = () => mix.lintJS('src/js/*.js');
 
