@@ -1,21 +1,21 @@
 import clean from './tasks/clean';
 import copy from './tasks/copy';
 import svg from './tasks/svg';
-import { compileCSS, tailwind, postCSS, lintCSS, watchCSS } from './tasks/css';
-import { compileES6, compileES5, compileJS, lintJS, watchJS } from './tasks/js';
+import { css, tailwind, postCSS, lintCSS, watchCSS } from './tasks/css';
+import { es6, es5, js, lintJS, watchJS } from './tasks/js';
 
 const mix = {
     clean,
     copy,
     svg,
-    compileCSS,
+    css,
     tailwind,
     postCSS,
     lintCSS,
     watchCSS,
-    compileES6,
-    compileES5,
-    compileJS,
+    es6,
+    es5,
+    js,
     lintJS,
     watchJS,
 };

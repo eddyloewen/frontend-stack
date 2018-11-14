@@ -27,9 +27,8 @@ const clean = () => mix.clean(['public/assets/*', 'public/css/*', 'public/js/*']
 const copy = () => mix.copy(copyFiles);
 const svg = () => mix.svg(svgSprites);
 
-// TODO: rename mix tasks to just css and js (remove compile part in function name)
-const css = () => mix.compileCSS('src/css/*.css', 'public/css/');
-const js = () => mix.compileJS(['src/js/BaseElement.js'], 'public/js/');
+const css = () => mix.css('src/css/*.css', 'public/css/');
+const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
 
 // TODO: use lint configs from project rather than from gulp-mix
 const lintCSS = () => mix.lintCSS('src/css/*.css');

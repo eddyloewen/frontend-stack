@@ -47,7 +47,7 @@ const rollupBundle = (input, codeSplitting = false, presets) => {
     });
 };
 
-const compileES6 = (src, dest) => {
+const es6 = (src, dest) => {
     return rollupBundle(src, true, [
         [
             '@babel/preset-env',
@@ -70,9 +70,9 @@ const compileES6 = (src, dest) => {
         });
     });
 };
-compileES6.description = `compile scripts using rollup with babel and code splitting`;
+es6.description = `compile scripts using rollup with babel and code splitting`;
 
-const compileES5 = (src, dest) => {
+const es5 = (src, dest) => {
     const bundlePromises = [];
     src.forEach(script => {
         rollupBundle(script, [
@@ -101,13 +101,13 @@ const compileES5 = (src, dest) => {
     });
     return Promise.all(bundlePromises);
 };
-compileES5.description = `compile scripts using rollup with babel and transpiling it to ES5`;
+es5.description = `compile scripts using rollup with babel and transpiling it to ES5`;
 
-const compileJS = (src, dest) => {
-    const bundlePromises = [compileES6(src, dest), compileES5(src, dest)];
+const js = (src, dest) => {
+    const bundlePromises = [es6(src, dest), es5(src, dest)];
     return Promise.all(bundlePromises);
 };
-compileJS.description = `compile scripts using rollup to generate es6 and es5 bundles`;
+js.description = `compile scripts using rollup to generate es6 and es5 bundles`;
 
 const projectTitle = 'Project title';
 const watchJS = (src, tasks) => {
@@ -128,4 +128,4 @@ const watchJS = (src, tasks) => {
 };
 watchJS.description = `watch for scripts changes and lint then compile on change`;
 
-export { compileES6, compileES5, compileJS, lintJS, watchJS };
+export { es6, es5, js, lintJS, watchJS };

@@ -29,7 +29,7 @@ const lintCSS = src => {
 };
 lintCSS.description = `lint styles using stylint`;
 
-const compileCSS = (src, dest) => {
+const css = (src, dest) => {
     return gulp
         .src(src)
         .pipe(sourcemaps.init())
@@ -69,7 +69,7 @@ const compileCSS = (src, dest) => {
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest));
 };
-compileCSS.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
+css.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
 
 const tailwind = (src, dest, configPath) => {
     return gulp
@@ -132,4 +132,4 @@ const watchCSS = (src, tasks) => {
 };
 watchCSS.description = `watch for style changes and lint then compile on change`;
 
-export { compileCSS, tailwind, postCSS, lintCSS, watchCSS };
+export { css, tailwind, postCSS, lintCSS, watchCSS };
