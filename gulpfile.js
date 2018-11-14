@@ -47,7 +47,6 @@ gulp.task('tinker', gulp.series('default', gulp.parallel(watchCSS, watchJS)));
 // Full API
 // mix.js(src, output);
 // mix.css(src, output);
-// mix.sass(src, output);
 // mix.tailwind(src, output);
 // mix.postCss(src, output, [plugins]);
 // mix.browserSync('my-site.test');
@@ -59,3 +58,5 @@ gulp.task('tinker', gulp.series('default', gulp.parallel(watchCSS, watchJS)));
 //     generateVersionManifest: false,
 //     purgeCss: true,
 // });
+
+// TODO: add mix.register() for adding custom tasks (eg. mix.sass() or mix.less())
