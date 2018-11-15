@@ -15,13 +15,9 @@ const svgSprites = [
     },
 ];
 
-// TODO: add global config to gulp-mix (see: https://github.com/JeffreyWay/laravel-mix/blob/master/src/index.js)
-// mix.options({
-//     projectTitle: 'Frontend Stack',
-//     disableNotifications: false,
-//     generateVersionManifest: false,
-//     purgeCss: true,
-// });
+mix.options({
+    projectTitle: 'Frontend Stack',
+});
 
 const clean = () => mix.clean(['public/assets/*', 'public/css/*', 'public/js/*']);
 const copy = () => mix.copy(copyFiles);
@@ -33,6 +29,7 @@ const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
 const lintCSS = () => mix.lintCSS('src/css/*.css');
 const lintJS = () => mix.lintJS('src/js/*.js');
 
+// TODO: add plumber to re-run watch after failure
 const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
 const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, js));
 

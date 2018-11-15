@@ -16,6 +16,8 @@ import notify from 'gulp-notify';
 const isDev = environments.development;
 const isProd = environments.production;
 
+import Config from '../config';
+
 const lintJS = src => {
     return gulp
         .src(src)
@@ -109,19 +111,18 @@ const js = (src, dest) => {
 };
 js.description = `compile scripts using rollup to generate es6 and es5 bundles`;
 
-const projectTitle = 'Project title';
 const watchJS = (src, tasks) => {
     notify({
-        title: projectTitle,
+        title: Config.projectTitle,
         message: 'Watching for JS changes...',
     }).write('');
     gulp.watch(src, tasks)
         .on('change', function() {
-            notify({ title: projectTitle, message: 'JS changed' }).write('');
+            notify({ title: Config.projectTitle, message: 'JS changed' }).write('');
         })
         .on('error', function(error) {
             notify.onError({
-                title: projectTitle,
+                title: Config.projectTitle,
                 message: 'ESLintError: ' + error.message,
             });
         });

@@ -16,6 +16,8 @@ import notify from 'gulp-notify';
 const isDev = environments.development;
 const isProd = environments.production;
 
+import Config from '../config';
+
 // Custom PurgeCSS extractor for Tailwind that allows special characters in class names.
 // https://github.com/FullHuman/purgecss#extractor
 class TailwindExtractor {
@@ -123,11 +125,10 @@ const postCSS = (src, dest, plugins) => {
 };
 postCSS.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
 
-const projectTitle = 'Project title';
 const watchCSS = (src, tasks) => {
-    notify({ title: projectTitle, message: 'Watching for CSS changes...' }).write('');
+    notify({ title: Config.projectTitle, message: 'Watching for CSS changes...' }).write('');
     gulp.watch(src, tasks).on('change', function() {
-        notify({ title: projectTitle, message: 'CSS changed' }).write('');
+        notify({ title: Config.projectTitle, message: 'CSS changed' }).write('');
     });
 };
 watchCSS.description = `watch for style changes and lint then compile on change`;

@@ -4,7 +4,14 @@ import svg from './tasks/svg';
 import { css, tailwind, postCSS, lintCSS, watchCSS } from './tasks/css';
 import { es6, es5, js, lintJS, watchJS } from './tasks/js';
 
+import Config from './config';
+
+const options = (options = {}) => {
+    Object.assign(Config, options);
+};
+
 const mix = {
+    options,
     clean,
     copy,
     svg,
