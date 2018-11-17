@@ -34,3 +34,18 @@ const mix = {
 };
 
 export default mix;
+
+// API
+// mix.js(src, destination);
+// mix.css(src, destination);
+// mix.tailwind(src, destination);
+// mix.postCss(src, destination, [plugins]);
+// mix.browserSync(options);
+// mix.svg(icons, destination);
+// mix.copy(src, destination);
+// mix.options({
+//     projectTitle: 'gulp-mix',
+//     showNotifications: true,
+//     generateVersionManifest: false,
+// });
+// mix.register(mix, 'name', () => new Promise(resolve => {}));
