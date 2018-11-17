@@ -1,3 +1,4 @@
+const glob = require('glob');
 const gulp = require('gulp');
 const mix = require('gulp-mix');
 
@@ -33,24 +34,31 @@ const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.serie
 const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, js));
 
 gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, js)));
-
 gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default', gulp.parallel(watchCSS, watchJS)));
 gulp.task('prod', gulp.series('default'));
-gulp.task('tinker', gulp.series('default', gulp.parallel(watchCSS, watchJS)));
+
+mix.register(mix, 'log', filesGlob => {
+    return new Promise(resolve => {
+        glob(filesGlob, function(error, files) {
+            console.log('custom log task', files);
+        });
+        resolve();
+    });
+});
+const customTask = () => mix.log('src/css/*.css');
+gulp.task('tinker', gulp.series(customTask, 'default', gulp.parallel(watchCSS, watchJS)));
 
 // Full API
-// mix.js(src, output);
-// mix.css(src, output);
-// mix.tailwind(src, output);
-// mix.postCss(src, output, [plugins]);
-// mix.browserSync('my-site.test');
+// mix.js(src, destination);
+// mix.css(src, destination);
+// mix.tailwind(src, destination);
+// mix.postCss(src, destination, [plugins]);
+// mix.browserSync(options);
 // mix.svg(icons, destination);
-// mix.copy(from, to);
+// mix.copy(src, destination);
 // mix.options({
 //     projectTitle: 'Frontend Stack',
 //     disableNotifications: false,
 //     generateVersionManifest: false,
 //     purgeCss: true,
 // });
-
-// TODO: add mix.register() for adding custom tasks (eg. mix.sass() or mix.less())

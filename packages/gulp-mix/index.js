@@ -10,7 +10,13 @@ const options = (options = {}) => {
     Object.assign(Config, options);
 };
 
+// TODO: check for async task (https://github.com/gulpjs/gulp/blob/master/docs/getting-started/4-async-completion.md)
+const register = (mix, name, task) => {
+    mix[name] = task.bind();
+};
+
 const mix = {
+    register,
     options,
     clean,
     copy,
