@@ -3,6 +3,7 @@ import environments from 'gulp-environments';
 
 import stylelint from 'stylelint';
 
+import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import postcssImport from 'postcss-import';
 import postcssNested from 'postcss-nested';
@@ -27,13 +28,37 @@ class TailwindExtractor {
 }
 
 const lintCSS = src => {
-    return gulp.src(src).pipe(postcss([stylelint]));
+    return gulp
+        .src(src)
+        .pipe(
+            plumber({
+                errorHandler: error => {
+                    notify.onError({
+                        title: Config.projectTitle + ' - Lint CSS Error',
+                        message: error.toString(),
+                    })(error);
+                    this.emit('end');
+                },
+            }),
+        )
+        .pipe(postcss([stylelint]));
 };
 lintCSS.description = `lint styles using stylint`;
 
 const css = (src, dest) => {
     return gulp
         .src(src)
+        .pipe(
+            plumber({
+                errorHandler: error => {
+                    notify.onError({
+                        title: Config.projectTitle + ' - CSS Error',
+                        message: error.toString(),
+                    })(error);
+                    this.emit('end');
+                },
+            }),
+        )
         .pipe(sourcemaps.init())
         .pipe(
             postcss([
@@ -76,6 +101,17 @@ css.description = `concatenate and compile styles using stylus before autoprefix
 const tailwind = (src, dest, configPath) => {
     return gulp
         .src(src)
+        .pipe(
+            plumber({
+                errorHandler: error => {
+                    notify.onError({
+                        title: Config.projectTitle + ' - Tailwind CSS Error',
+                        message: error.toString(),
+                    })(error);
+                    this.emit('end');
+                },
+            }),
+        )
         .pipe(sourcemaps.init())
         .pipe(
             postcss([
@@ -118,6 +154,17 @@ tailwind.description = `concatenate and compile styles using tailwind before aut
 const postCSS = (src, dest, plugins) => {
     return gulp
         .src(src)
+        .pipe(
+            plumber({
+                errorHandler: error => {
+                    notify.onError({
+                        title: Config.projectTitle + ' - PostCSS Error',
+                        message: error.toString(),
+                    })(error);
+                    this.emit('end');
+                },
+            }),
+        )
         .pipe(sourcemaps.init())
         .pipe(postcss(plugins))
         .pipe(isDev(sourcemaps.write('.')))

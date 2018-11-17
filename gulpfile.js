@@ -29,7 +29,6 @@ const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
 const lintCSS = () => mix.lintCSS('src/css/*.css');
 const lintJS = () => mix.lintJS('src/js/*.js');
 
-// TODO: add plumber to re-run watch after failure
 const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
 const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, js));
 

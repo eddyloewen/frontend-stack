@@ -3,6 +3,7 @@ const path = require('path');
 import gulp from 'gulp';
 import environments from 'gulp-environments';
 
+import plumber from 'gulp-plumber';
 import eslint from 'gulp-eslint';
 
 import { rollup } from 'rollup';
@@ -21,6 +22,17 @@ import Config from '../config';
 const lintJS = src => {
     return gulp
         .src(src)
+        .pipe(
+            plumber({
+                errorHandler: error => {
+                    notify.onError({
+                        title: Config.projectTitle + ' - Lint JS Error',
+                        message: error.toString(),
+                    })(error);
+                    this.emit('end');
+                },
+            }),
+        )
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
