@@ -25,10 +25,12 @@ const lintJS = src => {
         .pipe(
             plumber({
                 errorHandler: error => {
-                    notify.onError({
-                        title: Config.projectTitle + ' - Lint JS Error',
-                        message: error.toString(),
-                    })(error);
+                    if (Config.showNotifications) {
+                        notify.onError({
+                            title: Config.projectTitle + ' - Lint JS Error',
+                            message: error.toString(),
+                        })(error);
+                    }
                     this.emit('end');
                 },
             }),
@@ -124,19 +126,25 @@ const js = (src, dest) => {
 js.description = `compile scripts using rollup to generate es6 and es5 bundles`;
 
 const watchJS = (src, tasks) => {
-    notify({
-        title: Config.projectTitle,
-        message: 'Watching for JS changes...',
-    }).write('');
+    if (Config.showNotifications) {
+        notify({
+            title: Config.projectTitle,
+            message: 'Watching for JS changes...',
+        }).write('');
+    }
     gulp.watch(src, tasks)
         .on('change', function() {
-            notify({ title: Config.projectTitle, message: 'JS changed' }).write('');
+            if (Config.showNotifications) {
+                notify({ title: Config.projectTitle, message: 'JS changed' }).write('');
+            }
         })
         .on('error', function(error) {
-            notify.onError({
-                title: Config.projectTitle,
-                message: 'ESLintError: ' + error.message,
-            });
+            if (Config.showNotifications) {
+                notify.onError({
+                    title: Config.projectTitle,
+                    message: 'ESLintError: ' + error.message,
+                });
+            }
         });
 };
 watchJS.description = `watch for scripts changes and lint then compile on change`;

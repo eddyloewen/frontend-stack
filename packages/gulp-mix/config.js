@@ -1,6 +1,6 @@
 let config = {
     projectTitle: 'gulp-mix',
-    disableNotifications: false, // TODO: use config option
+    showNotifications: true,
     generateVersionManifest: false, // TODO: use config option
     purgeCss: true, // TODO: use config option
 };

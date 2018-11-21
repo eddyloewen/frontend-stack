@@ -33,10 +33,12 @@ const lintCSS = src => {
         .pipe(
             plumber({
                 errorHandler: error => {
-                    notify.onError({
-                        title: Config.projectTitle + ' - Lint CSS Error',
-                        message: error.toString(),
-                    })(error);
+                    if (Config.showNotifications) {
+                        notify.onError({
+                            title: Config.projectTitle + ' - Lint CSS Error',
+                            message: error.toString(),
+                        })(error);
+                    }
                     this.emit('end');
                 },
             }),
@@ -51,10 +53,12 @@ const css = (src, dest) => {
         .pipe(
             plumber({
                 errorHandler: error => {
-                    notify.onError({
-                        title: Config.projectTitle + ' - CSS Error',
-                        message: error.toString(),
-                    })(error);
+                    if (Config.showNotifications) {
+                        notify.onError({
+                            title: Config.projectTitle + ' - CSS Error',
+                            message: error.toString(),
+                        })(error);
+                    }
                     this.emit('end');
                 },
             }),
@@ -104,10 +108,12 @@ const tailwind = (src, dest, configPath) => {
         .pipe(
             plumber({
                 errorHandler: error => {
-                    notify.onError({
-                        title: Config.projectTitle + ' - Tailwind CSS Error',
-                        message: error.toString(),
-                    })(error);
+                    if (Config.showNotifications) {
+                        notify.onError({
+                            title: Config.projectTitle + ' - Tailwind CSS Error',
+                            message: error.toString(),
+                        })(error);
+                    }
                     this.emit('end');
                 },
             }),
@@ -157,10 +163,12 @@ const postCSS = (src, dest, plugins) => {
         .pipe(
             plumber({
                 errorHandler: error => {
-                    notify.onError({
-                        title: Config.projectTitle + ' - PostCSS Error',
-                        message: error.toString(),
-                    })(error);
+                    if (Config.showNotifications) {
+                        notify.onError({
+                            title: Config.projectTitle + ' - PostCSS Error',
+                            message: error.toString(),
+                        })(error);
+                    }
                     this.emit('end');
                 },
             }),
@@ -173,9 +181,13 @@ const postCSS = (src, dest, plugins) => {
 postCSS.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
 
 const watchCSS = (src, tasks) => {
-    notify({ title: Config.projectTitle, message: 'Watching for CSS changes...' }).write('');
+    if (Config.showNotifications) {
+        notify({ title: Config.projectTitle, message: 'Watching for CSS changes...' }).write('');
+    }
     gulp.watch(src, tasks).on('change', function() {
-        notify({ title: Config.projectTitle, message: 'CSS changed' }).write('');
+        if (Config.showNotifications) {
+            notify({ title: Config.projectTitle, message: 'CSS changed' }).write('');
+        }
     });
 };
 watchCSS.description = `watch for style changes and lint then compile on change`;
