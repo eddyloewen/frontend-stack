@@ -19,6 +19,24 @@ const isProd = environments.production;
 
 import Config from '../config';
 
+const defaultOptions = {
+    babel: {
+        babelrc: false,
+        presets: [
+            [
+                '@babel/preset-env',
+                {
+                    targets: {
+                        browsers: ['Chrome >= 61', 'Safari >= 11', 'iOS >= 11', 'Firefox >= 60', 'Edge >= 16'],
+                    },
+                },
+            ],
+        ],
+        exclude: 'node_modules/**',
+        plugins: [],
+    },
+};
+
 const lintJS = src => {
     return gulp
         .src(src)
@@ -41,19 +59,14 @@ const lintJS = src => {
 };
 lintJS.description = `lint scripts using eslint`;
 
-const rollupBundle = (input, codeSplitting = false, presets) => {
+const rollupBundle = (input, babelConfig, codeSplitting = false) => {
     return rollup({
         input: input,
         experimentalCodeSplitting: codeSplitting,
         plugins: [
             resolve(),
             commonjs(),
-            babel({
-                babelrc: false,
-                presets: presets,
-                exclude: 'node_modules/**',
-                plugins: [],
-            }),
+            babel(babelConfig),
             isProd() &&
                 cleanup({
                     comments: ['eslint', /^\*-/],
@@ -63,18 +76,9 @@ const rollupBundle = (input, codeSplitting = false, presets) => {
     });
 };
 
-const es6 = (src, dest) => {
-    return rollupBundle(src, true, [
-        [
-            '@babel/preset-env',
-            {
-                modules: false,
-                targets: {
-                    browsers: ['Chrome >= 60', 'Safari >= 10.1', 'iOS >= 10.3', 'Firefox >= 54', 'Edge >= 15'],
-                },
-            },
-        ],
-    ]).then(bundle => {
+const es6 = (src, dest, options = {}) => {
+    options = Object.assign(defaultOptions, options);
+    return rollupBundle(src, options.babel, true).then(bundle => {
         return new Promise(resolve => {
             bundle.write({
                 dir: path.join(dest, 'module'),
@@ -88,19 +92,27 @@ const es6 = (src, dest) => {
 };
 es6.description = `compile scripts using rollup with babel and code splitting`;
 
-const es5 = (src, dest) => {
+const es5 = (src, dest, options = {}) => {
+    options = Object.assign(
+        Object.assign(defaultOptions, {
+            babel: {
+                presets: [
+                    [
+                        '@babel/preset-env',
+                        {
+                            targets: {
+                                ie: '11',
+                            },
+                        },
+                    ],
+                ],
+            },
+        }),
+        options,
+    );
     const bundlePromises = [];
     src.forEach(script => {
-        rollupBundle(script, [
-            [
-                '@babel/preset-env',
-                {
-                    targets: {
-                        ie: '11',
-                    },
-                },
-            ],
-        ]).then(bundle => {
+        rollupBundle(script, options.babel).then(bundle => {
             bundlePromises.push(
                 new Promise(resolve => {
                     bundle.write({

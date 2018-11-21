@@ -13,6 +13,7 @@ import autoprefixer from 'autoprefixer';
 import purgecss from 'gulp-purgecss';
 import cssnano from 'cssnano';
 import notify from 'gulp-notify';
+import gulpIf from 'gulp-if';
 
 const isDev = environments.development;
 const isProd = environments.production;
@@ -26,6 +27,25 @@ class TailwindExtractor {
         return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
     }
 }
+
+const defaultOptions = {
+    autoprefixer: {
+        browsers: ['last 2 versions', 'IE 11'],
+        grid: true,
+    },
+    purgecss: {
+        content: ['**/*.html'],
+        extractors: [
+            {
+                extractor: TailwindExtractor,
+                extensions: ['html', 'js', 'ftl', 'yaml', 'hbs'],
+            },
+        ],
+    },
+    cssnano: {
+        preset: 'default',
+    },
+};
 
 const lintCSS = src => {
     return gulp
@@ -47,7 +67,8 @@ const lintCSS = src => {
 };
 lintCSS.description = `lint styles using stylint`;
 
-const css = (src, dest) => {
+const css = (src, dest, options = {}) => {
+    options = Object.assign(defaultOptions, options);
     return gulp
         .src(src)
         .pipe(
@@ -64,45 +85,16 @@ const css = (src, dest) => {
             }),
         )
         .pipe(sourcemaps.init())
-        .pipe(
-            postcss([
-                postcssImport(),
-                tailwindcss('tailwind.js'),
-                postcssNested(),
-                autoprefixer({
-                    browsers: ['last 2 versions', 'IE 11'],
-                    grid: true,
-                }),
-            ]),
-        )
-        .pipe(
-            isProd(
-                purgecss({
-                    content: ['templates/**/*.html'],
-                    extractors: [
-                        {
-                            extractor: TailwindExtractor,
-                            extensions: ['html', 'js', 'ftl', 'yaml', 'hbs'],
-                        },
-                    ],
-                }),
-            ),
-        )
-        .pipe(
-            isProd(
-                postcss([
-                    cssnano({
-                        preset: 'default',
-                    }),
-                ]),
-            ),
-        )
+        .pipe(postcss([postcssImport(), postcssNested(), options.autoprefixer && autoprefixer(options.autoprefixer)]))
+        .pipe(gulpIf(isProd() && options.purgeCss, purgecss(options.purgeCss)))
+        .pipe(isProd(postcss([options.cssnano && cssnano(options.cssnano)])))
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest));
 };
 css.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
 
-const tailwind = (src, dest, configPath) => {
+const tailwind = (src, dest, configPath, options = {}) => {
+    options = Object.assign(defaultOptions, options);
     return gulp
         .src(src)
         .pipe(
@@ -124,34 +116,11 @@ const tailwind = (src, dest, configPath) => {
                 postcssImport(),
                 tailwindcss(configPath),
                 postcssNested(),
-                autoprefixer({
-                    browsers: ['last 2 versions', 'IE 11'],
-                    grid: true,
-                }),
+                options.autoprefixer && autoprefixer(options.autoprefixer),
             ]),
         )
-        .pipe(
-            isProd(
-                purgecss({
-                    content: ['templates/**/*.html'],
-                    extractors: [
-                        {
-                            extractor: TailwindExtractor,
-                            extensions: ['html', 'js', 'ftl', 'yaml', 'hbs'],
-                        },
-                    ],
-                }),
-            ),
-        )
-        .pipe(
-            isProd(
-                postcss([
-                    cssnano({
-                        preset: 'default',
-                    }),
-                ]),
-            ),
-        )
+        .pipe(gulpIf(isProd() && options.purgeCss, purgecss(options.purgeCss)))
+        .pipe(isProd(postcss([options.cssnano && cssnano(options.cssnano)])))
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest));
 };
