@@ -28,12 +28,13 @@ const svg = () => mix.svg(files.svg);
 
 const css = () => mix.css('src/css/*.css', 'public/css/');
 const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
+const es6 = () => mix.es6(['src/js/BaseElement.js'], 'public/js/');
 
 const lintCSS = () => mix.lintCSS('src/css/*.css');
 const lintJS = () => mix.lintJS('src/js/*.js');
 
 const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
-const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, js));
+const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, es6));
 
 gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, js)));
 gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default', gulp.parallel(watchCSS, watchJS)));

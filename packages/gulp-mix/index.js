@@ -2,7 +2,12 @@ import clean from './tasks/clean';
 import copy from './tasks/copy';
 import svg from './tasks/svg';
 import { css, tailwind, postCSS, lintCSS, watchCSS } from './tasks/css';
-import { es6, es5, js, lintJS, watchJS } from './tasks/js';
+
+import es6 from './tasks/es6';
+import es5 from './tasks/es5';
+import js from './tasks/js';
+import lintJS from './tasks/lintJS';
+import watchJS from './tasks/watchJS';
 
 import Config from './config';
 

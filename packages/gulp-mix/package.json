@@ -1,6 +1,6 @@
 {
   "name": "gulp-mix",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Gulp Mix is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
   "keywords": [
     "frontend stack",
@@ -46,7 +46,7 @@
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.1.0",
     "prettier": "^1.14.3",
-    "rollup": "^0.66.6",
+    "rollup": "^1.1.0",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-babel-minify": "^6.1.1",
     "rollup-plugin-cleanup": "^3.0.0",
