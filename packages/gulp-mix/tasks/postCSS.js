@@ -4,11 +4,14 @@ import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
 import notify from 'gulp-notify';
+import hash from 'gulp-hash-version-manifest';
 
 const isDev = environments.development;
 const isProd = environments.production;
 
 import Config from '../config';
+import gulpIf from 'gulp-if';
+import hash from 'gulp-hash-version-manifest';
 
 const postCSS = (src, dest, plugins) => {
     return gulp
@@ -29,7 +32,8 @@ const postCSS = (src, dest, plugins) => {
         .pipe(sourcemaps.init())
         .pipe(postcss(plugins))
         .pipe(isDev(sourcemaps.write('.')))
-        .pipe(gulp.dest(dest));
+        .pipe(gulp.dest(dest))
+        .pipe(gulpIf(Config.versionManifest !== false, hash({ name: Config.versionManifest })));
 };
 postCSS.description = `process styles with postcss`;
 

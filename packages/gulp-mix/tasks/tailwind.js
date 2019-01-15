@@ -12,6 +12,7 @@ import purgecss from 'gulp-purgecss';
 import cssnano from 'cssnano';
 import notify from 'gulp-notify';
 import gulpIf from 'gulp-if';
+import hash from 'gulp-hash-version-manifest';
 
 const isDev = environments.development;
 const isProd = environments.production;
@@ -74,7 +75,8 @@ const tailwind = (src, dest, configPath, options = {}) => {
         .pipe(gulpIf(isProd() && options.purgeCss, purgecss(options.purgeCss)))
         .pipe(isProd(postcss([options.cssnano && cssnano(options.cssnano)])))
         .pipe(isDev(sourcemaps.write('.')))
-        .pipe(gulp.dest(dest));
+        .pipe(gulp.dest(dest))
+        .pipe(gulpIf(Config.versionManifest !== false, hash({ name: Config.versionManifest })));
 };
 tailwind.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
 

@@ -1,7 +1,7 @@
 let config = {
     projectTitle: 'gulp-mix',
     showNotifications: true,
-    generateVersionManifest: false, // TODO: use config option
+    versionManifest: false,
 };
 
 export default config;
