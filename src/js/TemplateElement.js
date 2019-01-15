@@ -37,9 +37,10 @@ function render(template, data) {
 }
 
 class TemplateElement extends BaseElement {
-    constructor(template, options = {}) {
+    constructor(options = {}) {
         super(Object.assign({ deferRender: false }, options));
-        this._template = template;
+        this._template = options.template;
+        this._style = options.style;
         this._shadowRoot = this.attachShadow({ mode: 'open' });
     }
 
@@ -53,7 +54,7 @@ class TemplateElement extends BaseElement {
 
     render(context = this) {
         this._shadowRoot.innerHTML = `
-            <style>${this.style()}</style>
+            <style>${this._style || this.style()}</style>
             ${render(this._template || this.template(), context)}
         `;
 
