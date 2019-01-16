@@ -4,14 +4,13 @@ import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
 import notify from 'gulp-notify';
+import gulpIf from 'gulp-if';
 import hash from 'gulp-hash-version-manifest';
 
 const isDev = environments.development;
 const isProd = environments.production;
 
 import Config from '../config';
-import gulpIf from 'gulp-if';
-import hash from 'gulp-hash-version-manifest';
 
 const postCSS = (src, dest, plugins) => {
     return gulp

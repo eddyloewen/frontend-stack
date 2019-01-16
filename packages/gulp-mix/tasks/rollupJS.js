@@ -6,9 +6,12 @@ import babel from 'rollup-plugin-babel';
 import minify from 'rollup-plugin-babel-minify';
 import cleanup from 'rollup-plugin-cleanup';
 import commonjs from 'rollup-plugin-commonjs';
+import hash from 'rollup-plugin-hash-version-manifest';
 
 const isDev = environments.development;
 const isProd = environments.production;
+
+import Config from '../config';
 
 const rollupJS = async (inputOptions = {}, outputOptions = {}, babelOptions = {}) => {
     inputOptions = Object.assign(
@@ -18,6 +21,10 @@ const rollupJS = async (inputOptions = {}, outputOptions = {}, babelOptions = {}
                 resolve(),
                 commonjs(),
                 babel(babelOptions),
+                Config.versionManifest !== false &&
+                    hash({
+                        name: Config.versionManifest,
+                    }),
                 isProd() &&
                     cleanup({
                         comments: ['eslint', /^\*-/],
