@@ -5,6 +5,7 @@ import crypto from 'crypto';
 const defaultOptions = {
     name: 'hash-manifest.json',
     replace: false,
+    versionPattern: '[name]?version=[hash]',
 };
 
 function md5(string) {
@@ -33,29 +34,31 @@ function mkdirpath(dest) {
     }
 }
 
-export default function hash(opts = {}) {
-    opts = Object.assign({}, defaultOptions, opts);
+function generateVersionString(versionPattern, name, hash) {
+    return versionPattern.replace('[name]', name).replace('[hash]', hash);
+}
+
+export default function hash(options = {}) {
+    options = Object.assign({}, defaultOptions, options);
 
     return {
         name: 'hash-version-manifest',
-        generateBundle: function(options, bundle) {
-            // console.log('hash options', options);
+        generateBundle: function(outputOptions, bundle) {
+            // console.log('hash outputOptions', outputOptions);
             // console.log('hash bundle', bundle);
 
             const bundleName = bundle[Object.keys(bundle)[0]].fileName;
             const bundleCode = bundle[Object.keys(bundle)[0]].code;
 
-            const fileName = `${options.dir}/${bundleName}`;
+            const fileName = `${outputOptions.dir}/${bundleName}`;
 
             // console.log('hash bundleName', bundleName);
             // console.log('hash fileName', fileName);
 
-            if (opts.name) {
-                const manifest = tryRequire(opts.name) || {};
-                manifest[`${fileName}`] = `${md5(bundleCode)}`;
-                mkdirpath(opts.name);
-                fs.writeFileSync(opts.name, JSON.stringify(manifest), 'utf8');
-            }
+            const manifest = tryRequire(options.name) || {};
+            manifest[`${fileName}`] = generateVersionString(options.versionPattern, fileName, md5(bundleCode));
+            mkdirpath(options.name);
+            fs.writeFileSync(options.name, JSON.stringify(manifest), 'utf8');
         },
     };
 }

@@ -1,6 +1,6 @@
 {
   "name": "gulp-hash-version-manifest",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Gulp Hash Version Manifest is a plugin to generate a hash manifest file with hashes for your assets. It makes it possible to easily cache-bust your assets.",
   "keywords": [
     "gulp",

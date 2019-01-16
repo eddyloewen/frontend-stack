@@ -32,7 +32,7 @@ const postCSS = (src, dest, plugins) => {
         .pipe(postcss(plugins))
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest))
-        .pipe(gulpIf(Config.versionManifest !== false, hash({ name: Config.versionManifest })));
+        .pipe(gulpIf(Config.versionManifest !== false, hash(Config.versionManifest)));
 };
 postCSS.description = `process styles with postcss`;
 

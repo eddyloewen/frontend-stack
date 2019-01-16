@@ -76,7 +76,7 @@ const tailwind = (src, dest, configPath, options = {}) => {
         .pipe(isProd(postcss([options.cssnano && cssnano(options.cssnano)])))
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest))
-        .pipe(gulpIf(Config.versionManifest !== false, hash({ name: Config.versionManifest })));
+        .pipe(gulpIf(Config.versionManifest !== false, hash(Config.versionManifest)));
 };
 tailwind.description = `concatenate and compile styles using tailwind before autoprefixing and minifying`;
 

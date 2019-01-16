@@ -3,6 +3,12 @@ import path from 'path';
 import crypto from 'crypto';
 import through from 'through2';
 
+const defaultOptions = {
+    name: 'hash-manifest.json',
+    replace: false,
+    versionPattern: '[name]?version=[hash]',
+};
+
 function md5(string) {
     return crypto
         .createHash('md5')
@@ -29,19 +35,23 @@ function mkdirpath(dest) {
     }
 }
 
+function generateVersionString(versionPattern, name, hash) {
+    return versionPattern.replace('[name]', name).replace('[hash]', hash);
+}
+
 export default function(options) {
+    options = Object.assign({}, defaultOptions, options);
+
     return through.obj((chunk, enc, cb) => {
         // console.log('through chunk', chunk.contents, chunk.path, chunk.cwd, chunk.base);
 
         const fileName = chunk.path.replace(chunk.cwd + '/', '');
 
         if (fileName.indexOf('.map') === -1) {
-            if (options.name) {
-                const manifest = tryRequire(options.name) || {};
-                manifest[`${fileName}`] = `${md5(chunk.contents)}`;
-                mkdirpath(options.name);
-                fs.writeFileSync(options.name, JSON.stringify(manifest), 'utf8');
-            }
+            const manifest = tryRequire(options.name) || {};
+            manifest[`${fileName}`] = generateVersionString(options.versionPattern, fileName, md5(chunk.contents));
+            mkdirpath(options.name);
+            fs.writeFileSync(options.name, JSON.stringify(manifest), 'utf8');
         }
 
         cb(null, chunk);

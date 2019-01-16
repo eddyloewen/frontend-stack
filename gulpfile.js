@@ -20,7 +20,7 @@ const files = {
 
 mix.options({
     projectTitle: 'Frontend Stack',
-    versionManifest: 'public/hash-manifest.json',
+    versionManifest: { name: 'public/hash-manifest.json' },
 });
 
 const clean = () => mix.clean(files.clean);

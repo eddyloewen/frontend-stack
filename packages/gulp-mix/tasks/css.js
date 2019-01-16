@@ -54,7 +54,7 @@ const css = (src, dest, options = {}) => {
         .pipe(isProd(postcss([options.cssnano && cssnano(options.cssnano)])))
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest))
-        .pipe(gulpIf(Config.versionManifest !== false, hash({ name: Config.versionManifest })));
+        .pipe(gulpIf(Config.versionManifest !== false, hash(Config.versionManifest)));
 };
 css.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
 
