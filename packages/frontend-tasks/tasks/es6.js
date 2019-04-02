@@ -1,3 +1,4 @@
+const glob = require('glob-all');
 import rollupJS from './rollupJS.js';
 
 import environments from 'gulp-environments';
@@ -8,7 +9,7 @@ const isProd = environments.production;
 const es6 = (src, dest, options = {}) => {
     return rollupJS(
         {
-            input: src,
+            input: glob.sync(src),
         },
         {
             dir: dest,
