@@ -43,13 +43,6 @@ const rollupJS = async (inputOptions = {}, outputOptions = {}, babelOptions = {}
 
     const bundle = await rollup(inputOptions);
 
-    // replace name for output options with dynamic filename because we can't use [name] as placeholder...
-    if (outputOptions.format === 'iife') {
-        const { output } = await bundle.generate(outputOptions);
-        // console.log(output[0]);
-        outputOptions['name'] = output[0].fileName.replace('.js', '');
-    }
-
     return await bundle.write(outputOptions);
 };
 rollupJS.description = `compile scripts using rollup with babel and code splitting`;
