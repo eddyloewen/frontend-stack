@@ -25,7 +25,7 @@ const register = (mix, name, task) => {
     mix[name] = task.bind();
 };
 
-const mix = {
+const tasks = {
     register,
     options,
     clean,
@@ -43,19 +43,19 @@ const mix = {
     watchJS,
 };
 
-export default mix;
+export default tasks;
 
 // API
-// mix.js(src, destination);
-// mix.css(src, destination);
-// mix.tailwind(src, destination);
-// mix.postCss(src, destination, [plugins]);
-// mix.browserSync(options);
-// mix.svg(icons, destination);
-// mix.copy(src, destination);
-// mix.options({
-//     projectTitle: 'gulp-mix',
+// tasks.js(src, destination);
+// tasks.css(src, destination);
+// tasks.tailwind(src, destination);
+// tasks.postCss(src, destination, [plugins]);
+// tasks.browserSync(options);
+// tasks.svg(icons, destination);
+// tasks.copy(src, destination);
+// tasks.options({
+//     projectTitle: 'frontend-tasks',
 //     showNotifications: true,
 //     generateVersionManifest: false,
 // });
-// mix.register(mix, 'name', () => new Promise(resolve => {}));
+// tasks.register(mix, 'name', () => new Promise(resolve => {}));

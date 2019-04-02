@@ -1,6 +1,6 @@
 const glob = require('glob');
 const gulp = require('gulp');
-const mix = require('gulp-mix');
+const tasks = require('frontend-tasks');
 
 const files = {
     clean: ['public/assets/*', 'public/css/*', 'public/js/*'],
@@ -18,30 +18,30 @@ const files = {
     ],
 };
 
-mix.options({
+tasks.options({
     projectTitle: 'Frontend Stack',
     versionManifest: { name: 'public/hash-manifest.json' },
 });
 
-const clean = () => mix.clean(files.clean);
-const copy = () => mix.copy(files.copy);
-const svg = () => mix.svg(files.svg);
+const clean = () => tasks.clean(files.clean);
+const copy = () => tasks.copy(files.copy);
+const svg = () => tasks.svg(files.svg);
 
-const css = () => mix.css('src/css/*.css', 'public/css/');
-const js = () => mix.js(['src/js/BaseElement.js'], 'public/js/');
-const es6 = () => mix.es6(['src/js/BaseElement.js'], 'public/js/');
+const css = () => tasks.css('src/css/*.css', 'public/css/');
+const js = () => tasks.js(['src/js/BaseElement.js'], 'public/js/');
+const es6 = () => tasks.es6(['src/js/BaseElement.js'], 'public/js/');
 
-const lintCSS = () => mix.lintCSS('src/css/*.css');
-const lintJS = () => mix.lintJS('src/js/*.js');
+const lintCSS = () => tasks.lintCSS('src/css/*.css');
+const lintJS = () => tasks.lintJS('src/js/*.js');
 
-const watchCSS = () => mix.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
-const watchJS = () => mix.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, es6));
+const watchCSS = () => tasks.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
+const watchJS = () => tasks.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, es6));
 
 gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, js)));
 gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default', gulp.parallel(watchCSS, watchJS)));
 gulp.task('prod', gulp.series('default'));
 
-mix.register(mix, 'log', filesGlob => {
+tasks.register(tasks, 'log', filesGlob => {
     return new Promise(resolve => {
         glob(filesGlob, function(error, files) {
             console.log('custom log task', files);
@@ -49,5 +49,5 @@ mix.register(mix, 'log', filesGlob => {
         resolve();
     });
 });
-const customTask = () => mix.log('src/css/*.css');
+const customTask = () => tasks.log('src/css/*.css');
 gulp.task('tinker', gulp.series(customTask, 'default', gulp.parallel(watchCSS, watchJS)));

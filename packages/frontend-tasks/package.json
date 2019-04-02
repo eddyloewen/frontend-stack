@@ -1,11 +1,13 @@
 {
-  "name": "gulp-mix",
-  "version": "0.11.1",
-  "description": "Gulp Mix is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
+  "name": "frontend-tasks",
+  "version": "0.12.0",
+  "description": "Frontend Tasks is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
   "keywords": [
     "frontend stack",
     "gulp",
-    "gulp mix",
+    "gulp tasks",
+    "frontend",
+    "frontend tasks",
     "rollup",
     "postcss"
   ],

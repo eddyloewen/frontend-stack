@@ -1,5 +1,5 @@
 let config = {
-    projectTitle: 'gulp-mix',
+    projectTitle: 'frontend-tasks',
     showNotifications: true,
     versionManifest: false,
 };
