@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 import environments from 'gulp-environments';
-
 import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import postcssImport from 'postcss-import';
@@ -17,6 +16,7 @@ const isDev = environments.development;
 const isProd = environments.production;
 
 import Config from '../config';
+import watchCSS from './watchCSS';
 
 const defaultOptions = {
     autoprefixer: {
@@ -31,7 +31,7 @@ const defaultOptions = {
     },
 };
 
-const css = (src, dest, options = {}) => {
+const cssTask = (src, dest, options = {}) => {
     options = Object.assign(defaultOptions, options);
     return gulp
         .src(src)
@@ -55,6 +55,11 @@ const css = (src, dest, options = {}) => {
         .pipe(isDev(sourcemaps.write('.')))
         .pipe(gulp.dest(dest))
         .pipe(gulpIf(Config.versionManifest !== false, hash(Config.versionManifest)));
+};
+
+const css = (src, dest, options = {}) => {
+    const css = () => cssTask(src, dest, options);
+    return isDev() ? watchCSS(src, css) : cssTask(src, dest, options);
 };
 css.description = `concatenate and compile styles using stylus before autoprefixing and minifying`;
 

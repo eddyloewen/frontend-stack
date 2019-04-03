@@ -29,16 +29,12 @@ const svg = () => tasks.svg(files.svg);
 
 const css = () => tasks.css('src/css/*.css', 'public/css/');
 const js = () => tasks.js(['src/js/*.js'], 'public/js/');
-const es6 = () => tasks.es6(['src/js/*.js'], 'public/js/');
 
 const lintCSS = () => tasks.lintCSS('src/css/*.css');
 const lintJS = () => tasks.lintJS('src/js/*.js');
 
-const watchCSS = () => tasks.watchCSS(['src/css/*.css', 'tailwind.js'], gulp.series(lintCSS, css));
-const watchJS = () => tasks.watchJS(['src/js/*.js', 'gulpfile.js'], gulp.series(lintJS, es6));
-
 gulp.task('default', gulp.series(clean, gulp.parallel(copy, svg, css, js)));
-gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default', gulp.parallel(watchCSS, watchJS)));
+gulp.task('dev', gulp.series(gulp.parallel(lintCSS, lintJS), 'default'));
 gulp.task('prod', gulp.series('default'));
 
 tasks.register(tasks, 'log', filesGlob => {
@@ -50,4 +46,4 @@ tasks.register(tasks, 'log', filesGlob => {
     });
 });
 const customTask = () => tasks.log('src/css/*.css');
-gulp.task('tinker', gulp.series(customTask, 'default', gulp.parallel(watchCSS, watchJS)));
+gulp.task('tinker', gulp.series(customTask, 'default'));

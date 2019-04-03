@@ -1,12 +1,13 @@
 import environments from 'gulp-environments';
 import eslint from 'gulp-eslint';
-import { rollup } from 'rollup';
+import { rollup, watch } from 'rollup';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import minify from 'rollup-plugin-babel-minify';
 import cleanup from 'rollup-plugin-cleanup';
 import commonjs from 'rollup-plugin-commonjs';
 import hash from 'rollup-plugin-hash-version-manifest';
+const notify = require('gulp-notify');
 
 const isDev = environments.development;
 const isProd = environments.production;
@@ -41,9 +42,42 @@ const rollupJS = async (inputOptions = {}, outputOptions = {}, babelOptions = {}
         outputOptions,
     );
 
-    const bundle = await rollup(inputOptions);
-
-    return await bundle.write(outputOptions);
+    if (isDev() && outputOptions['format'] === 'es') {
+        return new Promise(resolve => {
+            const watcher = watch({
+                ...inputOptions,
+                output: [outputOptions],
+                watch: {
+                    clearScreen: true,
+                },
+            });
+            watcher.on('event', event => {
+                if (!Config.showNotifications) return;
+                if (event.code === 'START') {
+                    notify({ title: Config.projectTitle, message: 'Starting "es6"...' }).write('');
+                }
+                if (event.code === 'BUNDLE_END') {
+                    notify({
+                        title: Config.projectTitle,
+                        message: 'Finished "es6" after ' + (event.duration / 1000).toFixed(2) + ' s',
+                    }).write('');
+                }
+                if (event.code === 'END') {
+                    resolve();
+                }
+                if (event.code === 'ERROR' || event.code === 'FATAL') {
+                    console.log('rollup watch ERROR', event);
+                    notify.onError({
+                        title: Config.projectTitle,
+                        message: 'JS ERROR|FATAL',
+                    });
+                }
+            });
+        });
+    } else {
+        const bundle = await rollup(inputOptions);
+        return await bundle.write(outputOptions);
+    }
 };
 rollupJS.description = `compile scripts using rollup with babel and code splitting`;
 

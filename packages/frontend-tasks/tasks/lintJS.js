@@ -1,11 +1,16 @@
 import gulp from 'gulp';
+import environments from 'gulp-environments';
 import plumber from 'gulp-plumber';
 import eslint from 'gulp-eslint';
 import notify from 'gulp-notify';
 
-import Config from '../config';
+const isDev = environments.development;
+const isProd = environments.production;
 
-const lintJS = src => {
+import Config from '../config';
+import watchJS from './watchJS';
+
+const lintJSTask = src => {
     return gulp
         .src(src)
         .pipe(
@@ -24,6 +29,11 @@ const lintJS = src => {
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
+};
+
+const lintJS = async src => {
+    const lintJS = () => lintJSTask(src);
+    return isDev() ? watchJS(src, lintJSTask(src)) : lintJSTask(src);
 };
 lintJS.description = `lint scripts using eslint`;
 

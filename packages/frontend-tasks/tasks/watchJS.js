@@ -4,12 +4,6 @@ import notify from 'gulp-notify';
 import Config from '../config';
 
 const watchJS = (src, tasks) => {
-    if (Config.showNotifications) {
-        notify({
-            title: Config.projectTitle,
-            message: 'Watching for JS changes...',
-        }).write('');
-    }
     gulp.watch(src, tasks)
         .on('change', function() {
             if (Config.showNotifications) {

@@ -1,6 +1,6 @@
 {
   "name": "frontend-tasks",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Frontend Tasks is a wrapper around gulp for most of the normal use cases for simple and modern frontend development",
   "keywords": [
     "frontend stack",
