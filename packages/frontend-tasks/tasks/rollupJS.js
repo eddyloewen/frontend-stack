@@ -6,7 +6,7 @@ import babel from 'rollup-plugin-babel';
 import minify from 'rollup-plugin-babel-minify';
 import cleanup from 'rollup-plugin-cleanup';
 import commonjs from 'rollup-plugin-commonjs';
-import hash from 'rollup-plugin-hash-version-manifest';
+import hash from '../.node/RollupHashPlugin';
 const notify = require('gulp-notify');
 
 const isDev = environments.development;

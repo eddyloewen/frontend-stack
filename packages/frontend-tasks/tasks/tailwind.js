@@ -12,7 +12,7 @@ import purgecss from 'gulp-purgecss';
 import cssnano from 'cssnano';
 import notify from 'gulp-notify';
 import gulpIf from 'gulp-if';
-import hash from 'gulp-hash-version-manifest';
+import hash from '../.node/GulpHashPlugin';
 
 const isDev = environments.development;
 const isProd = environments.production;
