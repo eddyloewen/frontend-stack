@@ -1,4 +1,4 @@
-const glob = require('glob');
+const glob = require('glob-all');
 const gulp = require('gulp');
 const tasks = require('frontend-tasks');
 

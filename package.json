@@ -14,8 +14,7 @@
   ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.10",
-    "frontend-tasks": "^0.15.0",
-    "glob": "^7.1.4"
+    "frontend-tasks": "^0.15.0"
   },
   "devDependencies": {
     "husky": "^2.3.0",
