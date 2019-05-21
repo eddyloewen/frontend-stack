@@ -14,10 +14,8 @@
   ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.10",
-    "cross-env": "^5.2.0",
     "frontend-tasks": "^0.15.0",
-    "glob": "^7.1.4",
-    "gulp": "^4.0.2"
+    "glob": "^7.1.4"
   },
   "devDependencies": {
     "husky": "^2.3.0",
