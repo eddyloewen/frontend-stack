@@ -27,7 +27,7 @@ const clean = () => tasks.clean(files.clean);
 const copy = () => tasks.copy(files.copy);
 const svg = () => tasks.svg(files.svg);
 
-const css = () => tasks.css('src/css/*.css', 'public/css/');
+const css = () => tasks.tailwind('src/css/*.css', 'public/css/');
 const js = () => tasks.js(['src/js/*.js'], 'public/js/');
 
 const lintCSS = () => tasks.lintCSS('src/css/*.css');
