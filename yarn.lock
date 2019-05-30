@@ -2982,6 +2982,53 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+frontend-tasks@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/frontend-tasks/-/frontend-tasks-0.1.1.tgz#dbf6713d88eed7202e9e33a290484fea93960a2b"
+  integrity sha512-n3OAEemaehFAGHM3dzTWQyZWDKRi1oT3+mg30mmc6r39paiIlBf36uGHCFJ56xNi7/+u47au+1nbpanIZJWm/Q==
+  dependencies:
+    "@babel/core" "^7.4.4"
+    "@babel/preset-env" "^7.4.4"
+    "@babel/register" "^7.4.4"
+    autoprefixer "^9.5.1"
+    cross-env "^5.2.0"
+    cssnano "^4.1.10"
+    del "^4.1.1"
+    eslint "^5.16.0"
+    eslint-config-prettier "^4.3.0"
+    eslint-config-standard "^12.0.0"
+    eslint-plugin-import "^2.17.2"
+    eslint-plugin-node "^9.0.1"
+    eslint-plugin-prettier "^3.1.0"
+    eslint-plugin-promise "^4.1.1"
+    eslint-plugin-standard "^4.0.0"
+    glob-all "^3.1.0"
+    gulp "^4.0.2"
+    gulp-environments "^0.1.2"
+    gulp-eslint "^5.0.0"
+    gulp-flatten "^0.4.0"
+    gulp-if "^2.0.2"
+    gulp-notify "^3.2.0"
+    gulp-plumber "^1.2.1"
+    gulp-postcss "^8.0.0"
+    gulp-purgecss "^1.2.0"
+    gulp-sourcemaps "^2.6.5"
+    gulp-svg-sprite "^1.5.0"
+    merge-stream "^1.0.1"
+    postcss-import "^12.0.1"
+    postcss-nested "^4.1.2"
+    prettier "^1.17.1"
+    rollup "^1.12.3"
+    rollup-plugin-babel "^4.3.2"
+    rollup-plugin-babel-minify "^8.0.0"
+    rollup-plugin-cleanup "^3.1.1"
+    rollup-plugin-commonjs "^10.0.0"
+    rollup-plugin-node-resolve "^5.0.0"
+    stylelint "^10.0.1"
+    stylelint-config-standard "^18.2.0"
+    tailwindcss "^1.0.1"
+    through2 "^3.0.1"
+
 fs-extra@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-1.0.0.tgz#cd3ce5f7e7cb6145883fcae3191e9877f8587950"
@@ -6019,7 +6066,7 @@ pretty-hrtime@^1.0.0, pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-pretty-quick@^1.11.0, pretty-quick@^1.8.0:
+pretty-quick@^1.11.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/pretty-quick/-/pretty-quick-1.11.0.tgz#d0bf997f3eb7de3d1bac5ffeb9c335f404d844c8"
   integrity sha512-hy0yOSnqVykrgoHcCcB72p3B5ERQJcjQI6ExeSGSTFE2cDrPwCQtFb3kXA1F+jUPrbt7orra8U+fjS/Emjgpuw==
