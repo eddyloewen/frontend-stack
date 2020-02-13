@@ -3061,10 +3061,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-frontend-tasks@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/frontend-tasks/-/frontend-tasks-0.3.0.tgz#19eb807fdb4003ae2d6ff71f49a163598f3da6a9"
-  integrity sha512-mmUnvFegDqfgmUtN9BhiLPoTV3RKqKAB8fm+nvsjIS4Qyr/4xTvzazYRhTITS+6RTHznkwrQUsPx9yKE97k6bw==
+frontend-tasks@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/frontend-tasks/-/frontend-tasks-0.4.0.tgz#10dac1402599adb065b7b00b43edd6c124f7d50e"
+  integrity sha512-xt06iYPS4ORNbacpfu9D+vEdcZ468PXYTGF3xkaMJ+JbEaP1wAVMdh3U6fFOWdf3tzfG7B1OuUWw35LpGv3iXQ==
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/preset-env" "^7.4.4"

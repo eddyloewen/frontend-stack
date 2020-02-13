@@ -23,14 +23,14 @@ options({
     versionManifest: { name: 'public/hash-manifest.json' },
 });
 
-task('clean', tasks.clean(files.clean));
-task('copy', tasks.copy(files.copy));
-task('svg', tasks.svg(files.svg));
+task('clean', tasks.clean({ directories: files.clean }));
+task('copy', tasks.copy({ paths: files.copy }));
+task('svg', tasks.svg({ paths: files.svg }));
 
-task('css', tasks.tailwind('src/css/*.css', 'public/css/'));
-task('js', tasks.js(['src/js/*.js'], 'public/js/'));
+task('css', tasks.tailwind({ src: 'src/css/*.css', dest: 'public/css/' }));
+task('js', tasks.js({ src: ['src/js/*.js'], dest: 'public/js/' }));
 
-task('lintCSS', tasks.lintCSS('src/css/*.css'));
+task('lintCSS', tasks.lintCSS({ src: 'src/css/*.css' }));
 task('lintJS', tasks.lintJS({ src: 'src/js/*.js' }));
 
 task('default', series('clean', parallel('copy', 'svg', 'css', 'js')));
