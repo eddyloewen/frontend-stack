@@ -1,6 +1,6 @@
 {
   "name": "frontend-stack",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "repository": "git@github.com:eddyloewen/frontend-stack.git",
   "author": "Eddy Löwen <mail@eddyloewen.com>",
   "license": "MIT",
@@ -10,8 +10,7 @@
     "yarn": "^1.19.1"
   },
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.4.1",
-    "frontend-tasks": "^0.4.1"
+    "frontend-tasks": "^0.4.2"
   },
   "devDependencies": {
     "husky": "^4.2.3",

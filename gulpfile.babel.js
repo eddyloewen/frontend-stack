@@ -4,12 +4,7 @@ import { task, parallel, series } from 'gulp';
 
 const files = {
     clean: ['public/assets/*', 'public/css/*', 'public/js/*'],
-    copy: [
-        {
-            src: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js',
-            dest: 'public/vendor/js/',
-        },
-    ],
+    copy: [],
     svg: [
         {
             src: 'src/assets/icons/*.svg',
