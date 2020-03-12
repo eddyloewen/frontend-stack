@@ -10,10 +10,10 @@
     "yarn": "^1.19.1"
   },
   "dependencies": {
-    "frontend-tasks": "^0.4.2"
+    "frontend-tasks": "^0.5.0"
   },
   "devDependencies": {
-    "husky": "^4.2.3",
+    "husky": "^4.2.4",
     "pretty-quick": "^2.0.1"
   },
   "husky": {
