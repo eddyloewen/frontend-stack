@@ -4,7 +4,12 @@ import { task, parallel, series } from 'gulp';
 
 const files = {
     clean: ['public/assets/*', 'public/css/*', 'public/js/*'],
-    copy: [],
+    copy: [
+        {
+            src: 'src/assets/images/*.*',
+            dest: 'public/assets/images',
+        },
+    ],
     svg: [
         {
             src: 'src/assets/icons/*.svg',
