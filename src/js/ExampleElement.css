@@ -1,0 +1,8 @@
+example-element {
+  background: blue;
+  color: white;
+
+  .is-selected {
+    color: black;
+  }
+}

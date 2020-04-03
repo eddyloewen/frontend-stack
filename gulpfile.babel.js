@@ -27,20 +27,38 @@ task('clean', tasks.clean({ directories: files.clean }));
 task('copy', tasks.copy({ paths: files.copy }));
 task('svg', tasks.svg({ paths: files.svg }));
 
-task('css', tasks.tailwind({ src: 'src/css/*.css', dest: 'public/css/' }));
+task('css', tasks.css({ src: 'src/css/*.css', dest: 'public/css/' }));
 task('js', tasks.js({ src: ['src/js/*.js'], dest: 'public/js/' }));
 
 task('lintCSS', tasks.lintCSS({ src: 'src/css/*.css' }));
 task('lintJS', tasks.lintJS({ src: 'src/js/*.js' }));
 
+task(
+    'watch',
+    tasks.watch({
+        paths: [
+            {
+                src: ['src/css/**/*.css', 'tailwind.config.js'],
+                tasks: series('lintCSS', 'css'),
+                changeMessage: 'CSS changed',
+            },
+            {
+                src: ['src/assets/**/*.svg'],
+                tasks: series('svg'),
+                changeMessage: 'SVG Sprite changed',
+            },
+        ],
+    }),
+);
+
 task('default', series('clean', parallel('copy', 'svg', 'css', 'js')));
-task('dev', series(parallel('lintCSS', 'lintJS'), 'default'));
+task('dev', series(parallel('lintCSS', 'lintJS'), 'default'), 'watch');
 task('prod', series('default'));
 
 const log = filesGlob => {
     return () => {
         return new Promise(resolve => {
-            glob(filesGlob, function(error, files) {
+            glob(filesGlob, function (error, files) {
                 console.log('custom log task', files);
             });
             resolve();
