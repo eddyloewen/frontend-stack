@@ -1,6 +1,9 @@
 import glob from 'glob-all';
 import { tasks, options } from 'frontend-tasks';
 import { task, parallel, series } from 'gulp';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const files = {
     clean: ['public/assets/*', 'public/css/*', 'public/js/*'],
@@ -51,8 +54,17 @@ task(
     }),
 );
 
+task(
+    'browserSync',
+    tasks.browserSync({
+        files: ['public/**/*.js', 'public/**/*.css'],
+    }),
+);
+
 task('default', series('clean', parallel('copy', 'svg', 'css', 'js')));
-task('dev', series(parallel('lintCSS', 'lintJS'), 'default'), 'watch');
+task('dev', series(parallel('lintCSS', 'lintJS'), 'default'));
+task('dev:watch', series('dev', 'watch'));
+task('dev:sync', parallel('dev:watch', 'browserSync'));
 task('prod', series('default'));
 
 const log = filesGlob => {

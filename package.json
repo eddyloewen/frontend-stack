@@ -10,7 +10,8 @@
     "yarn": "^1.19.1"
   },
   "dependencies": {
-    "frontend-tasks": "^0.6.0"
+    "dotenv": "^8.2.0",
+    "frontend-tasks": "^0.7.0"
   },
   "devDependencies": {
     "husky": "^4.2.3",
@@ -23,6 +24,8 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development gulp dev",
+    "dev:watch": "cross-env NODE_ENV=development gulp dev:watch",
+    "dev:sync": "cross-env NODE_ENV=development gulp dev:sync",
     "prod": "cross-env NODE_ENV=production gulp prod",
     "tinker": "cross-env NODE_ENV=development gulp tinker"
   }
