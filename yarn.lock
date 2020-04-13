@@ -3576,10 +3576,10 @@ fresh@0.5.2, fresh@^0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-frontend-tasks@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/frontend-tasks/-/frontend-tasks-0.7.0.tgz#224a9e5329d0df35aa04408f0fece54654f559d4"
-  integrity sha512-MOQC7RgBEgelwuDdhJb6W8Uyp7funrufu1KzHv/kPcbwOJsMxurKHDvrTqZE2WKBU6JvDrAsL6+UsoAYbUsq0Q==
+frontend-tasks@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/frontend-tasks/-/frontend-tasks-0.7.3.tgz#f32a1c0ce179a26d209d8826b33bd7cb206db8d7"
+  integrity sha512-Fzco8CYrgwRCdAovzSFMAbpCmWvbfAmjUYE+3lPFUHjFIa5QazpgbrGcbOgM8jetSj94eSTLM6hibVbMV+nQmA==
   dependencies:
     "@babel/core" "^7.8.4"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
