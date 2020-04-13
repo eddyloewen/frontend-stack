@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "frontend-tasks": "^0.7.4"
+    "frontend-tasks": "^0.7.5"
   },
   "devDependencies": {
     "husky": "^4.2.3",
