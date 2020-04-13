@@ -31,7 +31,7 @@ task('copy', tasks.copy({ paths: files.copy }));
 task('svg', tasks.svg({ paths: files.svg }));
 
 task('css', tasks.css({ src: 'src/css/*.css', dest: 'public/css/' }));
-task('js', tasks.js({ src: ['src/js/*.js'], dest: 'public/js/' }));
+task('js', tasks.js({ src: ['src/js/**/*.js'], dest: 'public/js/' }));
 
 task('lintCSS', tasks.lintCSS({ src: 'src/css/*.css' }));
 task('lintJS', tasks.lintJS({ src: 'src/js/*.js' }));
