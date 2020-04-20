@@ -36,6 +36,8 @@ task('js', tasks.js({ src: ['src/js/**/*.js'], dest: 'public/js/' }));
 task('lintCSS', tasks.lintCSS({ src: 'src/css/*.css' }));
 task('lintJS', tasks.lintJS({ src: 'src/js/*.js' }));
 
+task('ls', tasks.run({ cmd: 'ls', args: ['-la'] }));
+
 task(
     'watch',
     tasks.watch({
