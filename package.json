@@ -1,32 +1,32 @@
 {
-  "name": "frontend-stack",
-  "version": "0.8.2",
-  "repository": "git@github.com:eddyloewen/frontend-stack.git",
-  "author": "Eddy Löwen <mail@eddyloewen.com>",
-  "license": "MIT",
-  "private": true,
-  "engines": {
-    "node": ">=12.14.0",
-    "yarn": "^1.19.1"
-  },
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "frontend-tasks": "^0.8.0"
-  },
-  "devDependencies": {
-    "husky": "^4.2.3",
-    "pretty-quick": "^2.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development gulp dev",
-    "dev:watch": "cross-env NODE_ENV=development gulp dev:watch",
-    "dev:sync": "cross-env NODE_ENV=development gulp dev:sync",
-    "prod": "cross-env NODE_ENV=production gulp prod",
-    "tinker": "cross-env NODE_ENV=development gulp tinker"
-  }
+	"name": "frontend-stack",
+	"version": "0.8.2",
+	"repository": "git@github.com:eddyloewen/frontend-stack.git",
+	"author": "Eddy Löwen <mail@eddyloewen.com>",
+	"license": "MIT",
+	"private": true,
+	"engines": {
+		"node": ">=12.14.0",
+		"yarn": "^1.19.1"
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"frontend-tasks": "^0.8.0"
+	},
+	"devDependencies": {
+		"husky": "^4.2.3",
+		"pretty-quick": "^2.0.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development gulp dev",
+		"dev:watch": "cross-env NODE_ENV=development gulp dev:watch",
+		"dev:sync": "cross-env NODE_ENV=development gulp dev:sync",
+		"prod": "cross-env NODE_ENV=production gulp prod",
+		"tinker": "cross-env NODE_ENV=development gulp tinker"
+	}
 }
