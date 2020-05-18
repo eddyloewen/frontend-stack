@@ -1,13 +1,13 @@
 @import '_base.css';
 
 body {
-  background: blue;
+	background: blue;
 }
 
 .grid {
-  display: grid;
+	display: grid;
 
-  .row {
-    display: flex;
-  }
+	.row {
+		display: flex;
+	}
 }
