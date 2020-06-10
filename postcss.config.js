@@ -13,6 +13,6 @@ module.exports = ({ env }) => ({
 		env === 'production' ? require('cssnano')() : false,
 	],
 	inject: false,
-	minimize: false,
+	minimize: true,
 	sourceMap: true,
 });
