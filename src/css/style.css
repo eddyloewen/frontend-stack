@@ -3,12 +3,11 @@
 @import './_buttons.css';
 
 body {
-	background: red;
+	background: blue;
 }
 
 .grid {
 	display: grid;
-
 	.row {
 		display: flex;
 	}
