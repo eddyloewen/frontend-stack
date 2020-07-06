@@ -1,8 +1,9 @@
 @import '_base.css';
+
 @import './_buttons.css';
 
 body {
-	background: red;
+	background: blue;
 }
 
 .grid {
