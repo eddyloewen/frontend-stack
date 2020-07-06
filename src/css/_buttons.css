@@ -1,0 +1,16 @@
+.btn {
+	@apply py-3;
+	@apply px-4;
+	@apply no-underline;
+	@apply rounded-sm;
+	@apply inline-flex items-center justify-between flex-no-wrap;
+	@apply font-medium text-base tracking-normal;
+	@apply cursor-pointer;
+	@apply transition-colors duration-300;
+
+	line-height: 1;
+
+	&:focus {
+		@apply outline-none;
+	}
+}
