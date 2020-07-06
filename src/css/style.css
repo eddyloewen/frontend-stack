@@ -1,13 +1,13 @@
 @import '_base.css';
-
 @import './_buttons.css';
 
 body {
-	background: green;
+	background: blue;
 }
 
 .grid {
 	display: grid;
+
 	.row {
 		display: flex;
 	}
